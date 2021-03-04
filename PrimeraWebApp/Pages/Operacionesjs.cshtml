@@ -1,0 +1,68 @@
+@page
+@{
+    ViewData["Title"] = "Operaciones aritméticas en JavaScript";
+}
+
+<div class="jumbotron">
+  <h1 class="display-4">Bienvenido!</h1>
+  <p class="lead">Esto es un módulo para la realización de operaciones aritméticas</p>
+  <hr class="my-4">
+  <p>Deberá capturar el valor de los operandos, posteriormente seleccionar la operación deseada y da clic para realizarla</p>
+  <p class="lead">
+    <a class="btn btn-primary btn-lg" href="#" role="button">Learn more</a>
+  </p>
+</div>
+
+<form method="POST">
+    <div>
+        <div class="form-group row">
+            <label class="col-lg-2 col-sm-3 col-form-label">Operando 1: </label>
+            <div class="col-sm-4 col-lg-2">
+                <input type="number" class="form-control" id="operando1">
+            </div>
+
+            <div class="col-sm-6 col-lg-6">
+                <span id="validacion_operando1" class="text-danger"></span>
+            </div>
+        </div>
+
+        <div class="form-group row">
+            <label class="col-lg-2 col-sm-3 col-form-label">Operando 2: </label>
+            <div class="col-sm-4 col-lg-2">
+                <input type="number" class="form-control" id="operando2">
+            </div>
+
+            <div class="col-sm-6 col-lg-6">
+                <span id="validacion_operando2" class="text-danger"></span>
+            </div>
+        </div>
+
+        <div class="form-group row">
+            <label class="col-lg-2 col-sm-3 col-form-label">Operación:</label>
+
+            <div class="col-sm-4 col-lg-2">                
+                <select id="operador" class="form-control">
+                    <option value="1">Sumar</option>
+                    <option value="2">Restar</option>
+                    <option value="3">Multiplicar</option>
+                    <option value="4">Dividir</option>
+                </select>
+            </div>
+        </div>
+
+        <div class="col-sm-2">
+            <button class="btn btn-danger btn-sm" id="realizarOperacion">Realizar operación</button>
+        </div>
+
+        <div class="form-group row">
+            <label class="col-lg-2 col-sm-3 col-form-label">Resultado:</label>
+            <div class="col-sm-4 col-lg-2">
+                <input type="number" id="resultado" class="form-control" disabled>
+            </div>
+        </div>
+    </div>
+</form>
+
+@section Scripts {
+    <script src="~/js/operaciones.js?1"></script>
+}
