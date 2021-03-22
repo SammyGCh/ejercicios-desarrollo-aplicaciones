@@ -101,7 +101,7 @@
             </div>
             <div class="modal-footer">
                 <button type="button" class="btn btn-sm btn-secondary" data-dismiss="modal">Cancelar</button>
-                <button type="submit" class="btn btn-sm btn-primary">Actualizar</button>
+                <button type="button" class="btn btn-sm btn-primary" onclick="enviar();" id="botonAgregar">Actualizar</button>
             </div>
         </form>
     </div>
@@ -111,6 +111,53 @@
 @section Scripts
 {
     <script>
+        function enviar() {
+            $("#botonAgregar").prop("disabled", true);
+            var id = $("#idAlumno").val();
+            var matricula = $("#matricula").val();
+            var nombre = $("#nombre").val();
+            var fecha = $("#fechaNacimiento").val();
+            var domicilio = $("#domicilio").val();
+            var telefono = $("#telefono").val();
+            var sexo = $("#sexo").val();
+
+            var alumno = {
+                id: id,
+                matricula: matricula,
+                nombre: nombre,
+                fecha: fecha,
+                domicilio: domicilio,
+                telefono: telefono,
+                sexo: sexo
+            };
+
+            $.ajax({
+                type: "POST",
+                url: "/AlumnosServer/Guardar",
+                dataType: "json",
+                contentType: "application/json",
+                processData: false,
+                data: JSON.stringify(alumno),
+                success: function(data) {
+                    if(data.guardado)
+                    {
+                        $("#botonAgregar").prop("disabled", false);
+                        alert("Los datos se han almacenado con éxito.");
+                        $("#actualizarModal").modal("hide");
+                    }
+                    else
+                    {
+                        $("#botonAgregar").prop("disabled", false);
+                        alert("Lo sentimos, no se pudieron almacenar los datos.");
+                    }
+                },
+                error: function(){
+                    alert("Lo sentimos, hubo un error.");
+                }
+            });
+        }
+
+
         function mostrarDatos(id, matricula, nombre, fecha, domicilio, telefono) {
             $("#idAlumno").val(id);
             $("#matricula").val(matricula);
@@ -128,8 +175,10 @@
             $("#fechaNacimiento").val("");
             $("#domicilio").val("");
             $("#telefono").val("");
-            $("#actualizarModalLabel").val("Agregar alumno");
+            
             $("#actualizarModal").modal("show");
+            $("#actualizarModalLabel").val("Agregar alumno");
+            $("botonAgregar").val("Agregar");
         }
     </script>
 }

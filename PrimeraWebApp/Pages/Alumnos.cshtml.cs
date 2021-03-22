@@ -3,6 +3,7 @@ using System.Linq;
 using System.Collections.Generic;
 using Microsoft.AspNetCore.Mvc;
 using Microsoft.AspNetCore.Mvc.RazorPages;
+using System.Threading;
 
 
 namespace PrimeraWebApp.Pages
@@ -53,6 +54,8 @@ namespace PrimeraWebApp.Pages
                     ActualizarAlumno();
                 }
             }
+
+            Thread.Sleep(2000);
             return Page();
         }
 
