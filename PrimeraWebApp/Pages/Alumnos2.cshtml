@@ -1,5 +1,4 @@
 @page
-@model Pages.VistasParciales.TablaAlumnosModel
 @{
     ViewData["Titulo"] = "Lista de Alumnos";
 }
@@ -19,7 +18,7 @@
         </tr>
     </thead>
     <tbody id="filasAlumnos">
-        <partial name="VistasParciales/TablaAlumnos"/>
+        
     </tbody>
 </table>
 
@@ -126,7 +125,16 @@
             $('#tablaAlumnos').DataTable({
                 "info":     false,
                 "order": [[1, "asc"], [0, "desc"]],
-                
+                "ajax": "/AlumnosServer/ObtenerAlumnos",
+                "columns": [
+                    {"data": "matricula", "searchable": true},
+                    {"data": "nombre", "searchable": true},
+                    {"data": "fecha", "searchable": true},
+                    {"data": "domicilio", "searchable": true},
+                    {"data": "telefono", "searchable": true},
+                    {"data": "sexo", "searchable": true},
+                    {"data": "eliminar", "searchable": true}
+                ]
             });
         });
 
@@ -153,7 +161,7 @@
 
             $.ajax({
                 type: "POST",
-                url: "/AlumnosServer/Guardar",
+                url: "/AlumnosServer/GuardarDB",
                 dataType: "json",
                 contentType: "application/json",
                 processData: false,
@@ -212,7 +220,7 @@
             var id = $("#idAlumnoEliminar").val();
             $.ajax({
                 type: "POST",
-                url: "/AlumnosServer/Eliminar?id=" + id,
+                url: "/AlumnosServer/EliminarDB?id=" + id,
                 dataType: "json",
                 contentType: "application/json",
                 processData: false,

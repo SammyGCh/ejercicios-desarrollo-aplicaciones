@@ -8,6 +8,7 @@ using Microsoft.AspNetCore.HttpsPolicy;
 using Microsoft.Extensions.Configuration;
 using Microsoft.Extensions.DependencyInjection;
 using Microsoft.Extensions.Hosting;
+using Microsoft.AspNetCore.Mvc.Razor;
 
 namespace PrimeraWebApp
 {
@@ -23,7 +24,13 @@ namespace PrimeraWebApp
         // This method gets called by the runtime. Use this method to add services to the container.
         public void ConfigureServices(IServiceCollection services)
         {
+            services.AddSession(options => {
+                options.IdleTimeout = TimeSpan.FromMinutes(30);
+            });
             services.AddRazorPages();
+            services.Configure<RazorViewEngineOptions>(options => {
+                options.PageViewLocationFormats.Add("/Pages/VistasParciales/{0}" + RazorViewEngine.ViewExtension);
+            });
             services.AddControllers();
         }
 
@@ -43,7 +50,7 @@ namespace PrimeraWebApp
 
             app.UseHttpsRedirection();
             app.UseStaticFiles();
-
+            app.UseSession();
             app.UseRouting();
 
             app.UseAuthorization();

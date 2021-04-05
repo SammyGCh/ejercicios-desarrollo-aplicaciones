@@ -1,0 +1,21 @@
+@model Pages.VistasParciales.TablaAlumnosModel
+@{
+    List<Models.Alumno> listaAlumnos = ViewData["ListaAlumnos"] as List<Models.Alumno>;
+}
+
+@foreach (var alumno in listaAlumnos.OrderBy(a => a.Matricula))
+{
+    var Fecha = $"{alumno.Fecha.Year}-{alumno.Fecha.Month:00}-{alumno.Fecha.Day:00}";
+    <tr>
+        <td>@alumno.Matricula</td>
+        <td> <a href="#"
+                onclick='mostrarDatos(@alumno.Id, "@alumno.Matricula", "@alumno.Nombre", "@Fecha", "@alumno.Domicilio", "@alumno.Telefono");'>@alumno.Nombre</a>
+        </td>
+        <td>@alumno.Fecha.ToShortDateString()</td>
+        <td>@alumno.Domicilio</td>
+        <td>@alumno.Telefono</td>
+        <td>@(alumno.Sexo == 'H' ? "Másculino" : "Femenino")</td>
+
+        <td><a href="#" class="text-danger" onclick="eliminarAlumno(@alumno.Id, '@alumno.Nombre');"><i class="far fa-trash-alt" style="margin: 10px;"></i>Eliminar</a></td>
+    </tr>
+}
